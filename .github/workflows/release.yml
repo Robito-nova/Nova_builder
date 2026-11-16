@@ -1,0 +1,33 @@
+name: Publish Debian release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out release commit
+        uses: actions/checkout@v4
+
+      - name: Verify Debian package and checksum
+        run: |
+          sha256sum -c releases/SHA256SUMS
+          dpkg-deb --info releases/Nova-Builder_0.1.0_amd64.deb
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: NOVA Builder ${{ github.ref_name }} (Preview)
+          body_path: releases/README.md
+          prerelease: true
+          make_latest: false
+          fail_on_unmatched_files: true
+          files: |
+            releases/Nova-Builder_0.1.0_amd64.deb
+            releases/SHA256SUMS

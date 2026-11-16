@@ -67,3 +67,5 @@ sudo apt install ./Nova-Builder_0.1.0_amd64.deb
 ```
 
 NOVA Builder then appears in the desktop application menu as **NOVA Builder**. It can also be started from a terminal with `nova-builder`.
+
+Pushing a `v*` version tag runs the release workflow and uploads the package and checksum to the repository's GitHub Releases page as a prerelease.
