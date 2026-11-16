@@ -1,0 +1,48 @@
+{
+  "manifestVersion": "1.0",
+  "schemaVersion": "1.0",
+  "app": {
+    "name": "NovaSampleApp",
+    "id": "com.example.novasampleapp",
+    "version": "1.0.0",
+    "description": "NOVA Builder örnek uygulama manifesti",
+    "developer": "Nova Team",
+    "type": "cli",
+    "entryPoint": "src/main.py",
+    "language": "python",
+    "arch": ["x86_64"],
+    "platforms": ["linux", "windows"]
+  },
+  "runtime": {
+    "required": ["python>=3.12"],
+    "fallback": []
+  },
+  "dependencies": {
+    "system": [],
+    "libraries": [],
+    "modules": []
+  },
+  "permissions": {
+    "network": true,
+    "filesystem": ["cache", "documents"],
+    "hardware": []
+  },
+  "resources": {
+    "icons": [],
+    "locales": ["resources/locales/tr.json"],
+    "assets": ["assets/**"]
+  },
+  "build": {
+    "toolchain": "python",
+    "target": "linux-debian-x86_64",
+    "output": "dist/NovaSampleApp"
+  },
+  "package": {
+    "kind": "application",
+    "format": "nova",
+    "launcher": "src/main.py",
+    "installMode": "portable",
+    "executableLike": true,
+    "icon": ""
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "manifestVersion": "1.0",
+  "schemaVersion": "1.0",
+  "app": {
+    "name": "NOVA Builder",
+    "id": "org.nova.nova-builder",
+    "version": "0.1.0",
+    "description": "Lightweight project builder and package manager for the NOVA ecosystem.",
+    "developer": "Robin Güneş",
+    "type": "desktop",
+    "entryPoint": "src/main.py",
+    "language": "python",
+    "arch": ["x86_64"],
+    "platforms": ["linux"]
+  },
+  "runtime": {
+    "required": ["python>=3.12"],
+    "fallback": []
+  },
+  "dependencies": {
+    "system": ["python3-jsonschema", "python3-tk"],
+    "libraries": [],
+    "modules": []
+  },
+  "permissions": {
+    "network": false,
+    "filesystem": ["project-files"],
+    "hardware": []
+  },
+  "resources": {
+    "icons": ["assets/icons/nova-builder.svg"],
+    "locales": [],
+    "assets": ["assets/icons/nova-builder.svg"]
+  },
+  "build": {
+    "toolchain": "python",
+    "target": "linux-debian-x86_64",
+    "output": "build/outputs/linux-debian-x86_64"
+  },
+  "package": {
+    "kind": "application",
+    "format": "nova",
+    "launcher": "src/main.py",
+    "installMode": "portable",
+    "executableLike": true,
+    "icon": "assets/icons/nova-builder.svg"
+  }
+}

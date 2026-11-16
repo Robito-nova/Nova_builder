@@ -1,0 +1,48 @@
+{
+  "manifestVersion": "1.0",
+  "schemaVersion": "1.0",
+  "app": {
+    "name": "Test File",
+    "id": "org.nova.testfile",
+    "version": "1.0.0",
+    "description": "Türkçe selamlama yazan küçük bir C uygulaması.",
+    "developer": "Robin Güneş",
+    "type": "cli",
+    "entryPoint": "src/test file.c",
+    "language": "c",
+    "arch": ["x86_64"],
+    "platforms": ["linux"]
+  },
+  "runtime": {
+    "required": [],
+    "fallback": []
+  },
+  "dependencies": {
+    "system": [],
+    "libraries": [],
+    "modules": []
+  },
+  "permissions": {
+    "network": false,
+    "filesystem": [],
+    "hardware": []
+  },
+  "resources": {
+    "icons": [],
+    "locales": [],
+    "assets": []
+  },
+  "build": {
+    "toolchain": "c",
+    "target": "linux-debian-x86_64",
+    "output": "build/outputs/linux-debian-x86_64"
+  },
+  "package": {
+    "kind": "application",
+    "format": "nova",
+    "launcher": "bin/test-file",
+    "installMode": "portable",
+    "executableLike": true,
+    "icon": ""
+  }
+}

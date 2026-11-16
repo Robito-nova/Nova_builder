@@ -1,0 +1,55 @@
+name: NOVA Builder CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  linux-debian:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test in Debian stable container
+        run: >-
+          docker run --rm
+          -v "$PWD:/workspace"
+          -w /workspace
+          debian:stable-slim
+          bash -lc 'apt-get update &&
+            apt-get install -y --no-install-recommends python3 python3-venv python3-tk gcc ca-certificates &&
+          python3 -m venv /tmp/nova-env &&
+          /tmp/nova-env/bin/pip install -r requirements.txt &&
+          /tmp/nova-env/bin/python -m compileall -q nova_builder tests &&
+          /tmp/nova-env/bin/python -m unittest discover -s tests -p "test_*.py" -v'
+
+  windows:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-2022, windows-2025]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: ilammy/msvc-dev-cmd@v1
+      - run: python -m pip install -r requirements.txt
+      - run: python -m compileall -q nova_builder tests
+      - run: python -m unittest discover -s tests -p 'test_*.py' -v
+
+  linux-arch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test in Arch Linux container
+        run: >-
+          docker run --rm
+          -v "$PWD:/workspace"
+          -w /workspace
+          archlinux:base
+          bash -lc 'pacman -Syu --noconfirm python python-pip tk gcc &&
+          python -m venv /tmp/nova-env &&
+          /tmp/nova-env/bin/pip install -r requirements.txt &&
+          /tmp/nova-env/bin/python -m compileall -q nova_builder tests &&
+          /tmp/nova-env/bin/python -m unittest discover -s tests -p "test_*.py" -v'
